@@ -3,6 +3,7 @@ package kafka
 import (
 	"context"
 	"fmt"
+
 	"github.com/gojekfarm/ziggurat/v2"
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
@@ -28,7 +29,6 @@ type worker struct {
 }
 
 func (w *worker) run(ctx context.Context) {
-
 	defer func() {
 		_, err := w.consumer.Commit()
 		if err != nil {
@@ -41,7 +41,7 @@ func (w *worker) run(ctx context.Context) {
 	lch := w.consumer.Logs()
 	go func() {
 		for evt := range lch {
-			w.logger.Info(evt.Message, map[string]interface{}{
+			w.logger.Debug(evt.Message, map[string]any{
 				"client": evt.Name,
 				"lvl":    evt.Level,
 			})
