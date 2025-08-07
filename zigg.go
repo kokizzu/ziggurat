@@ -3,9 +3,10 @@ package ziggurat
 import (
 	"context"
 	"errors"
-	"github.com/gojekfarm/ziggurat/v2/logger"
 	"sync"
 	"time"
+
+	"github.com/gojekfarm/ziggurat/v2/logger"
 )
 
 var ErrCleanShutdown = errors.New("clean shutdown of streams")
@@ -22,7 +23,6 @@ type Ziggurat struct {
 }
 
 func (z *Ziggurat) Run(ctx context.Context, handler Handler, consumers ...MessageConsumer) error {
-
 	z.mustInit(consumers, handler)
 
 	var wg sync.WaitGroup
@@ -70,7 +70,6 @@ func (z *Ziggurat) Run(ctx context.Context, handler Handler, consumers ...Messag
 	}
 
 	return ErrCleanShutdown
-
 }
 
 func (z *Ziggurat) mustInit(consumers []MessageConsumer, handler Handler) {
